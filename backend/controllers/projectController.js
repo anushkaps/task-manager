@@ -28,7 +28,6 @@ exports.completeTask = async (req, res) => {
     task.is_completed = true;
     await task.save();
 
-    // Optionally, calculate the project progress or score
     const project = await Project.findById(task.projectId).populate('tasks');
     const completedTasks = project.tasks.filter(task => task.is_completed);
     const progress = (completedTasks.length / project.tasks.length) * 100;
